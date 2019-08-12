@@ -6,21 +6,22 @@
 */
 
 import Tone from 'tone'
-import { NotesMap } from 'config/notes'
+import { NotesMap } from '@/config/notes'
 
 let mapFile = (name) => {
-    let file = ''
-    NotesMap.forEach(note => {
-        if (note.name == name) {
-            file = note.file
-        }
-    })
-    return file
+  let file = ''
+  NotesMap.forEach(note => {
+    if (note.name == name) {
+      file = note.file
+    }
+  })
+  return file
 }
 
 var SampleLibrary = {
     minify: false,
     ext: '.[mp3|ogg]', // use setExt to change the extensions on all files // do not change this variable //
+    // baseUrl: 'http://lc-SAs97Sjr.cn-n1.lcfile.com', // leancloud file
     baseUrl: '/static/samples/',
     list: ['bass-electric','bassoon','cello','clarinet','contrabass','flute','french-horn','guitar-acoustic','guitar-electric','guitar-nylon', 'harmonium','harp','organ','piano','saxophone','trombone','trumpet','tuba','violin','xylophone'],
     onload: null,
@@ -79,15 +80,11 @@ var SampleLibrary = {
 
                 }
 
-
-
-
                 rt[t.instruments[i]] = new Tone.Sampler(
                     newT, {
                         baseUrl: t.baseUrl + t.instruments[i] + "/",
                         onload: t.onload
                     }
-
                 )
             }
 
@@ -117,17 +114,16 @@ var SampleLibrary = {
                     delete newT[f]
                 })
             }
-
-
-
-
+            // cdn 路径适配
+            // if (t.instruments == 'piano') {
+            //     t.instruments = ''
+            // }
             var s = new Tone.Sampler(
                 newT, {
                     baseUrl: t.baseUrl + t.instruments + "/",
                     onload: t.onload
                 }
             )
-
             return s
         }
 
